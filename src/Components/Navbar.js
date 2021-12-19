@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 
 
 const Container = styled.div`
@@ -31,12 +32,40 @@ const Input = styled.input`
     border: none;
 `
 const Center = styled.div`
-    flex: 1;
+flex: 1;
+`
+const Logo = styled.h1`
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
 `
 const Right = styled.div`
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    `
+const MenuItem = styled.div`
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+    `
+const ItemNumber = styled.span`
+    height: 15px;
+    width: 15px;
+    line-height: 15px;
+    background-color: magenta;
+    color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    right: -15px;
+    top: -10px;
 `
-
 const Navbar = () => {
     return (
         <Container>
@@ -48,8 +77,19 @@ const Navbar = () => {
                         <FaSearch />
                     </SearchContainer>
                 </Left>
-                <Center>Center</Center>
-                <Right>Right</Right>
+                <Center>
+                    <Logo>
+                        <h1>eCom Shop</h1>
+                    </Logo>
+                </Center>
+                <Right>
+                    <MenuItem>Register</MenuItem>
+                    <MenuItem>Login</MenuItem>
+                    <MenuItem>
+                        <FaShoppingCart style={{ fontSize: 18, color: "grey" }} />
+                        <ItemNumber>1</ItemNumber>
+                    </MenuItem>
+                </Right>
             </Wrapper>
         </Container>
     );
