@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaMinus, FaPlus, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
 import Anouncement from '../Components/Anouncement';
 import Footer from '../Components/Footer';
@@ -141,6 +142,14 @@ const Product = () => {
                             <FilterSizeOption>XL</FilterSizeOption>
                         </FilterSize>
                     </FilterContainer>
+                    <AddContainer>
+                        <AmountContainer>
+                            <FaPlus />
+                            <Amount>1</Amount>
+                            <FaMinus />
+                        </AmountContainer>
+                        <Button>Add to cart</Button>
+                    </AddContainer>
                 </InfoContainer>
             </Wrapper>
             <NewsLetter />
