@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { FaSearch } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 
 const Info = styled.div`
   opacity: 0;
@@ -60,24 +63,24 @@ const Icon = styled.div`
   }
 `;
 const Product = (props) => {
-    const { img } = props.productsProps;
-    return (
-        <Container>
-            <Circle />
-            <Image src={img} />
-            <Info>
-                <Icon>
-                    icon
-                </Icon>
-                <Icon>
-                    icon
-                </Icon>
-                <Icon>
-                    icon
-                </Icon>
-            </Info>
-        </Container>
-    );
+  const { img } = props.productsProps;
+  return (
+    <Container>
+      <Circle />
+      <Image src={img} />
+      <Info>
+        <Icon>
+          <FaShoppingCart />
+        </Icon>
+        <Icon>
+          <FaSearch />
+        </Icon>
+        <Icon>
+          <FaHeart />
+        </Icon>
+      </Info>
+    </Container>
+  );
 };
 
 export default Product;

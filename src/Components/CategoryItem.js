@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    display: flex;
-    flex: 1;
     margin: 3px;
-    height: 70vh;
+    width: 100%;
+    height: 250px;
     position: relative;
 `;
 
