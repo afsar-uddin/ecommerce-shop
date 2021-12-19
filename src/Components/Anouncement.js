@@ -18,4 +18,4 @@ const Anouncement = () => {
     );
 };
 
-export default Anouncement;
+export default Anouncement; 
