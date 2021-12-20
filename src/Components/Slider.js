@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaArrowLeft } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa';
+import { mobile } from "../responsive";
 
 const Container = styled.div`
     width: 100%;
@@ -9,6 +10,7 @@ const Container = styled.div`
     display: flex;
     position: relative;
     overflow: hidden;
+    ${mobile({ display: "block", height: "auto" })}
 `
 const Arrow = styled.div`
     height: 50px;
