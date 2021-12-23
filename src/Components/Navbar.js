@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 import { FaShoppingCart } from 'react-icons/fa';
 import { mobile } from "../responsive";
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     height: 60px;
@@ -76,6 +78,7 @@ const ItemNumber = styled.span`
     top: -10px;
 `
 const Navbar = () => {
+    const quantity = useSelector(state => state.cart.quantity);
     return (
         <Container>
             <Wrapper>
@@ -92,11 +95,12 @@ const Navbar = () => {
                     </Logo>
                 </Center>
                 <Right>
+                    <MenuItem><Link to="/">Home</Link></MenuItem>
                     <MenuItem>Register</MenuItem>
                     <MenuItem>Login</MenuItem>
                     <MenuItem>
                         <FaShoppingCart style={{ fontSize: 18, color: "grey" }} />
-                        <ItemNumber>1</ItemNumber>
+                        <ItemNumber>{quantity}</ItemNumber>
                     </MenuItem>
                 </Right>
             </Wrapper>

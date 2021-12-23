@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -43,14 +44,16 @@ const Button = styled.button`
 `;
 
 const CategoryItem = (props) => {
-    const { title, img } = props.categoryItemProps;
+    const { title, img, cat } = props.categoryItemProps;
     return (
         <Container>
-            <Image src={img} />
-            <Info>
-                <Title>{title}</Title>
-                <Button>SHOP NOW</Button>
-            </Info>
+            <Link to={`/products/${cat}`}>
+                <Image src={img} />
+                <Info>
+                    <Title>{title}</Title>
+                    <Button>SHOP NOW</Button>
+                </Info>
+            </Link>
         </Container>
     );
 };

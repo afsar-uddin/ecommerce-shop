@@ -1,10 +1,14 @@
-import React from 'react';
-import { FaMinus, FaPlus, FaTrash } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 import styled from 'styled-components';
 import Anouncement from '../Components/Anouncement';
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 import NewsLetter from '../Components/NewsLetter';
+import { useLocation } from 'react-router-dom';
+import { publicRequest } from '../requestMethods';
+import { addProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div``;
 
@@ -110,52 +114,83 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-    return (
-        <Container>
-            <Anouncement />
-            <Navbar />
-            <Wrapper>
-                <ImgContainer>
-                    <Image src="https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png"></Image>
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>Denim Jumpsuit</Title>
-                    <Desc>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                    </Desc>
-                    <Price>$30</Price>
-                    <FilterContainer>
-                        <FilterTitle>Color</FilterTitle>
-                        <Filter>
-                            <FilterColor color="black" />
-                            <FilterColor color="darkblue" />
-                            <FilterColor color="grey" />
-                        </Filter>
-                    </FilterContainer>
-                    <FilterContainer>
-                        <FilterTitle>Sizes</FilterTitle>
-                        <FilterSize>
-                            <FilterSizeOption>XS</FilterSizeOption>
-                            <FilterSizeOption>S</FilterSizeOption>
-                            <FilterSizeOption>M</FilterSizeOption>
-                            <FilterSizeOption>L</FilterSizeOption>
-                            <FilterSizeOption>XL</FilterSizeOption>
-                        </FilterSize>
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            <FaPlus />
-                            <Amount>1</Amount>
-                            <FaMinus />
-                        </AmountContainer>
-                        <Button>Add to cart</Button>
-                    </AddContainer>
-                </InfoContainer>
-            </Wrapper>
-            <NewsLetter />
-            <Footer />
-        </Container>
-    );
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+        setProduct(res.data.product)
+      } catch { }
+    }
+    getProduct();
+  }, [id]);
+
+  // QUANTITY HANDLER 
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1)
+    } else {
+      setQuantity(quantity + 1)
+    }
+  };
+  const handleOnClick = () => {
+    dispatch(addProduct({ product, quantity }));
+  }
+  return (
+    <Container>
+      <Anouncement />
+      <Navbar />
+      <Wrapper>
+        <ImgContainer>
+          <Image src={product.img}></Image>
+        </ImgContainer>
+        <InfoContainer>
+          <Title>{product.title}</Title>
+          <Desc>
+            {product.desc}
+          </Desc>
+          <Price>৳ {product.price}</Price>
+          <FilterContainer>
+            <FilterTitle>Color</FilterTitle>
+            <Filter>
+              {
+                product.color?.map(c => (
+                  <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+                ))
+              }
+            </Filter>
+          </FilterContainer>
+          <FilterContainer>
+            <FilterTitle>Sizes</FilterTitle>
+            <FilterSize onChange={(e) => setSize(e.target.value)}>
+              {
+                product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))
+              }
+            </FilterSize>
+          </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <FaMinus onClick={() => handleQuantity("dec")} />
+              <Amount>{quantity}</Amount>
+              <FaPlus onClick={() => handleQuantity("inc")} />
+            </AmountContainer>
+            <Button onClick={handleOnClick}>Add to cart</Button>
+          </AddContainer>
+        </InfoContainer>
+      </Wrapper>
+      <NewsLetter />
+      <Footer />
+    </Container>
+  );
 };
 
 export default Product;

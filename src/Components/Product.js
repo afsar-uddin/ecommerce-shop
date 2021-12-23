@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 import { FaShoppingCart } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Info = styled.div`
   opacity: 0;
@@ -63,7 +64,7 @@ const Icon = styled.div`
   }
 `;
 const Product = (props) => {
-  const { img } = props.productsProps;
+  const { img, _id } = props.productsProps;
   return (
     <Container>
       <Circle />
@@ -73,7 +74,9 @@ const Product = (props) => {
           <FaShoppingCart />
         </Icon>
         <Icon>
-          <FaSearch />
+          <Link to={`/product/${_id}`}>
+            <FaSearch />
+          </Link>
         </Icon>
         <Icon>
           <FaHeart />
