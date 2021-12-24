@@ -98,10 +98,12 @@ const Navbar = () => {
                     <MenuItem><Link to="/">Home</Link></MenuItem>
                     <MenuItem>Register</MenuItem>
                     <MenuItem>Login</MenuItem>
-                    <MenuItem>
-                        <FaShoppingCart style={{ fontSize: 18, color: "grey" }} />
-                        <ItemNumber>{quantity}</ItemNumber>
-                    </MenuItem>
+                    <Link to="/cart">
+                        <MenuItem>
+                            <FaShoppingCart style={{ fontSize: 18, color: "grey" }} />
+                            <ItemNumber>{quantity}</ItemNumber>
+                        </MenuItem>
+                    </Link>
                 </Right>
             </Wrapper>
         </Container>
