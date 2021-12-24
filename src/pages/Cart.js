@@ -5,7 +5,9 @@ import Anouncement from "../Components/Anouncement";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import StripeCheckout from 'react-stripe-checkout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { userRequest } from "../requestMethods"
+import { useNavigate } from "react-router-dom";
 
 const KEY = process.env.STRIPE_KEY;
 
@@ -156,7 +158,20 @@ const Cart = () => {
   const onToken = (token) => {
     setStripeToken(token)
   }
-  console.log(stripeToken)
+  const navigate = useNavigate();
+  // console.log(stripeToken)
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100,
+        });
+        navigate("/success", { data: res.data })
+      } catch { }
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, navigate])
   return (
     <Container>
       <Anouncement />

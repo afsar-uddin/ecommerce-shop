@@ -7,6 +7,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css';
+import Success from "./pages/Success";
 
 function App() {
   const user = true;
@@ -18,6 +19,7 @@ function App() {
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<Success />} />
         {user ? <Route path="/login" element={<Navigate to="/" />} /> : <Route path="/login" element={<Login />} />}
         {user ? <Route path="/register" element={<Navigate to="/" />} /> : <Route path="/register" element={<Register />} />}
       </Routes>
